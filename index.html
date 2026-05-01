@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>FLIRT PARTY — Intrări</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;500;600&display=swap');
+
+  :root {
+    --magenta: #C2185B;
+    --hot-pink: #E91E8C;
+    --deep: #880E4F;
+    --light-pink: #F8BBD9;
+    --pale: #FCE4EC;
+    --white: #FFFFFF;
+    --text: #2a0a18;
+    --muted: #9e4a6e;
+    --border: #f0c4d8;
+    --shadow: rgba(194, 24, 91, 0.15);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* ── HEADER ── */
+  header {
+    width: 100%;
+    background: var(--white);
+    border-bottom: 2px solid var(--border);
+    padding: 10px 16px 8px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  header h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(13px, 4vw, 18px);
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    color: var(--magenta);
+    text-transform: uppercase;
+    line-height: 1.1;
+  }
+
+  .heart-deco { color: var(--hot-pink); font-size: 0.9em; }
+
+  /* ── TOTAL BADGE ── */
+  .total-section {
+    width: 100%;
+    background: linear-gradient(135deg, var(--magenta) 0%, var(--hot-pink) 100%);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .total-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.8);
+    white-space: nowrap;
+  }
+
+  .total-number {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 10vw, 52px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  }
+
+  .total-sub {
+    font-size: 10px;
+    color: rgba(255,255,255,0.7);
+    text-align: right;
+  }
+
+  /* ── MAIN CONTENT ── */
+  main {
+    width: 100%;
+    max-width: 480px;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+  }
+
+  /* ── COUNTER CARD ── */
+  .card {
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 12px 14px;
+    box-shadow: 0 2px 12px var(--shadow);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .card-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .icon-men { background: #e8f4fd; }
+  .icon-women { background: var(--pale); }
+  .icon-free { background: #f0fde8; }
+  .icon-money { background: #fff8e1; }
+
+  .card-title {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .counter-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .counter-value {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 8vw, 42px);
+    font-weight: 900;
+    color: var(--magenta);
+    min-width: 60px;
+    text-align: center;
+    line-height: 1;
+  }
+
+  .btn-group {
+    display: flex;
+    gap: 5px;
+  }
+
+  .btn {
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.12s ease;
+    user-select: none;
+    -webkit-user-select: none;
+    white-space: nowrap;
+  }
+
+  .btn:active { transform: scale(0.93); }
+
+  .btn-minus {
+    background: var(--pale);
+    color: var(--magenta);
+    width: 40px;
+    font-size: 18px;
+  }
+
+  .btn-plus {
+    background: var(--magenta);
+    color: #fff;
+    width: 40px;
+    font-size: 18px;
+  }
+
+  .btn-minus:hover { background: #f8d7ea; }
+  .btn-plus:hover { background: var(--deep); }
+
+  /* ── MONEY SECTION ── */
+  .money-value {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 7vw, 40px);
+    font-weight: 900;
+    color: var(--magenta);
+    text-align: center;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+
+  .money-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 5px;
+  }
+
+  .btn-money-minus {
+    background: var(--pale);
+    color: var(--magenta);
+    font-size: 11px;
+    height: 36px;
+    border-radius: 9px;
+    flex: 1;
+  }
+
+  .btn-money-plus {
+    background: var(--magenta);
+    color: #fff;
+    font-size: 11px;
+    height: 36px;
+    border-radius: 9px;
+    flex: 1;
+  }
+
+  .btn-money-minus:hover { background: #f8d7ea; }
+  .btn-money-plus:hover { background: var(--deep); }
+
+  .money-row { display: flex; gap: 5px; margin-top: 5px; }
+
+  /* ── DIVIDER ── */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 2px 0;
+  }
+
+  /* ── DOWNLOAD SECTION ── */
+  .download-section {
+    width: 100%;
+    max-width: 480px;
+    padding: 8px 12px 16px;
+  }
+
+  .download-note {
+    text-align: center;
+    font-size: 10px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    letter-spacing: 0.04em;
+  }
+
+  .btn-download {
+    width: 100%;
+    height: 48px;
+    background: linear-gradient(135deg, #2d2d2d 0%, #111 100%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.15s ease;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+  }
+
+  .btn-download:hover { background: linear-gradient(135deg, #444 0%, #222 100%); }
+  .btn-download:active { transform: scale(0.97); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(136,14,79,0.35);
+    backdrop-filter: blur(4px);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .modal-overlay.show { display: flex; }
+
+  .modal {
+    background: #fff;
+    border-radius: 20px;
+    padding: 28px 24px;
+    max-width: 340px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(194,24,91,0.25);
+  }
+
+  .modal-icon { font-size: 36px; margin-bottom: 10px; }
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--magenta);
+    margin-bottom: 8px;
+  }
+
+  .modal-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  .modal-actions { display: flex; gap: 10px; }
+
+  .btn-cancel {
+    flex: 1;
+    height: 44px;
+    background: var(--pale);
+    color: var(--magenta);
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  .btn-confirm {
+    flex: 1;
+    height: 44px;
+    background: linear-gradient(135deg, var(--magenta), var(--hot-pink));
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+  }
+
+  /* responsive safety */
+  @media (max-height: 700px) {
+    .total-number { font-size: 28px; }
+    .counter-value { font-size: 26px; }
+    .card { padding: 9px 12px; }
+    .card-header { margin-bottom: 7px; }
+    .btn { height: 36px; width: 36px; }
+    .btn-money-minus, .btn-money-plus { height: 32px; font-size: 10px; }
+    main { gap: 6px; padding: 8px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1><span class="heart-deco">♥</span> FLIRT PARTY CLIENTS <span class="heart-deco">♥</span><br>01 MAY</h1>
+</header>
+
+<!-- TOTAL PEOPLE -->
+<div class="total-section">
+  <div>
+    <div class="total-label">Total persoane</div>
+    <div class="total-sub">intrate la eveniment</div>
+  </div>
+  <div class="total-number" id="totalPeople">0</div>
+</div>
+
+<main>
+
+  <!-- BĂIEȚI -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-men">👨</div>
+      <span class="card-title">Băieți intrați</span>
+    </div>
+    <div class="counter-row">
+      <div class="btn-group">
+        <button class="btn btn-minus" onclick="change('men', -1)">−</button>
+      </div>
+      <div class="counter-value" id="menVal">0</div>
+      <div class="btn-group">
+        <button class="btn btn-plus" onclick="change('men', 1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FETE -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-women">👩</div>
+      <span class="card-title">Fete intrate</span>
+    </div>
+    <div class="counter-row">
+      <div class="btn-group">
+        <button class="btn btn-minus" onclick="change('women', -1)">−</button>
+      </div>
+      <div class="counter-value" id="womenVal">0</div>
+      <div class="btn-group">
+        <button class="btn btn-plus" onclick="change('women', 1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- GRATUIT -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-free">🎟️</div>
+      <span class="card-title">Intrări gratuite</span>
+    </div>
+    <div class="counter-row">
+      <div class="btn-group">
+        <button class="btn btn-minus" onclick="change('free', -1)">−</button>
+      </div>
+      <div class="counter-value" id="freeVal">0</div>
+      <div class="btn-group">
+        <button class="btn btn-plus" onclick="change('free', 1)">+</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- BANI -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-icon icon-money">💰</div>
+      <span class="card-title">Total încasări (MDL)</span>
+    </div>
+    <div class="money-value" id="moneyVal">0 MDL</div>
+    <div class="money-grid">
+      <button class="btn btn-money-minus" onclick="changeMoney(-50)">−50</button>
+      <button class="btn btn-money-minus" onclick="changeMoney(-100)">−100</button>
+      <button class="btn btn-money-minus" onclick="changeMoney(-150)">−150</button>
+      <button class="btn btn-money-minus" onclick="changeMoney(-200)">−200</button>
+    </div>
+    <div class="money-row">
+      <button class="btn btn-money-plus" onclick="changeMoney(50)">+50</button>
+      <button class="btn btn-money-plus" onclick="changeMoney(100)">+100</button>
+      <button class="btn btn-money-plus" onclick="changeMoney(150)">+150</button>
+      <button class="btn btn-money-plus" onclick="changeMoney(200)">+200</button>
+    </div>
+  </div>
+
+</main>
+
+<!-- DOWNLOAD -->
+<div class="download-section">
+  <div class="download-note">⚠️ Descarcă raportul doar la sfârșitul serii</div>
+  <button class="btn-download" onclick="confirmDownload()">
+    <span>📄</span> Descarcă Raport PDF
+  </button>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-icon">📋</div>
+    <div class="modal-title">Confirmi descărcarea?</div>
+    <div class="modal-text">Ești sigur că vrei să descarci raportul? Numerele nu se vor reseta după descărcare.</div>
+    <div class="modal-actions">
+      <button class="btn-cancel" onclick="closeModal()">Anulează</button>
+      <button class="btn-confirm" onclick="doDownload()">Da, descarcă</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── STATE ──
+  const KEY = 'flirt_party_01may';
+  let state = { men: 0, women: 0, free: 0, money: 0 };
+
+  function load() {
+    try {
+      const saved = localStorage.getItem(KEY);
+      if (saved) state = JSON.parse(saved);
+    } catch(e) {}
+    render();
+  }
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e) {}
+  }
+
+  function render() {
+    document.getElementById('menVal').textContent = state.men;
+    document.getElementById('womenVal').textContent = state.women;
+    document.getElementById('freeVal').textContent = state.free;
+    document.getElementById('moneyVal').textContent = state.money.toLocaleString('ro-MD') + ' MDL';
+    const total = state.men + state.women + state.free;
+    document.getElementById('totalPeople').textContent = total;
+  }
+
+  function change(key, delta) {
+    state[key] = Math.max(0, state[key] + delta);
+    save();
+    render();
+  }
+
+  function changeMoney(delta) {
+    state.money = Math.max(0, state.money + delta);
+    save();
+    render();
+  }
+
+  // ── MODAL ──
+  function confirmDownload() {
+    document.getElementById('modal').classList.add('show');
+  }
+
+  function closeModal() {
+    document.getElementById('modal').classList.remove('show');
+  }
+
+  // ── PDF DOWNLOAD ──
+  function doDownload() {
+    closeModal();
+    const total = state.men + state.women + state.free;
+    const paid = total - state.free;
+    const now = new Date();
+    const dateStr = now.toLocaleDateString('ro-MD', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+    const timeStr = now.toLocaleTimeString('ro-MD', { hour:'2-digit', minute:'2-digit' });
+
+    const html = `<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@400;600&display=swap');
+  body { font-family: 'DM Sans', sans-serif; background: #fff; color: #2a0a18; padding: 40px; max-width: 600px; margin: 0 auto; }
+  h1 { font-family: 'Playfair Display', serif; font-size: 28px; color: #C2185B; text-align: center; margin-bottom: 4px; }
+  .subtitle { text-align: center; font-size: 13px; color: #9e4a6e; margin-bottom: 30px; }
+  .meta { text-align: center; font-size: 12px; color: #aaa; margin-bottom: 30px; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+  th { background: #C2185B; color: #fff; padding: 12px 16px; text-align: left; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; }
+  td { padding: 12px 16px; border-bottom: 1px solid #f0c4d8; font-size: 15px; }
+  .val { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 20px; color: #C2185B; text-align: right; }
+  .total-row td { background: #FCE4EC; font-weight: 700; }
+  .money-row td { background: #fff8e1; }
+  .money-val { color: #C2185B; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 22px; text-align: right; }
+  .footer { text-align: center; font-size: 11px; color: #ccc; margin-top: 30px; }
+  .heart { color: #E91E8C; }
+</style>
+</head>
+<body>
+<h1><span class="heart">♥</span> FLIRT PARTY <span class="heart">♥</span></h1>
+<div class="subtitle">Raport de seară — 01 MAY</div>
+<div class="meta">Generat: ${dateStr}, ora ${timeStr}</div>
+
+<table>
+  <tr><th>Categorie</th><th style="text-align:right">Număr</th></tr>
+  <tr><td>👨 Băieți intrați</td><td class="val">${state.men}</td></tr>
+  <tr><td>👩 Fete intrate</td><td class="val">${state.women}</td></tr>
+  <tr><td>🎟️ Intrări gratuite</td><td class="val">${state.free}</td></tr>
+  <tr><td>💳 Intrări cu plată</td><td class="val">${paid}</td></tr>
+  <tr class="total-row"><td><strong>👥 TOTAL PERSOANE</strong></td><td class="val" style="font-size:24px">${total}</td></tr>
+</table>
+
+<table>
+  <tr><th colspan="2">💰 Încasări</th></tr>
+  <tr class="money-row"><td>Total bani colectați</td><td class="money-val">${state.money.toLocaleString('ro-MD')} MDL</td></tr>
+</table>
+
+<div class="footer">FLIRT PARTY — Raport confidențial ♥</div>
+</body>
+</html>`;
+
+    // Open print dialog as PDF
+    const win = window.open('', '_blank');
+    win.document.write(html);
+    win.document.close();
+    win.onload = () => {
+      setTimeout(() => { win.print(); }, 400);
+    };
+  }
+
+  // ── INIT ──
+  load();
+</script>
+</body>
+</html>
